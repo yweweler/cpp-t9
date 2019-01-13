@@ -10,8 +10,25 @@ Both examples train a statistical model from a collection of Tweets from Donald 
 
 ### Symbol definitions
 
-* Lexicon symbols (T9 keys): "0123456789*#"
+* T9 keys: "0123456789*#"
 * Corpus symbols: "a-zA-Z0-9 .,"
+
+The corpus symbols are assigned to the keys as follows:
+
+| T9 Key | Corpus Symbols    |
+|--------|-------------------|
+| #      | " " (space)       |
+| *      | "" (not assigned) |
+| 0      | "0"               |
+| 1      | ".,1"             |
+| 2      | "aAbBcC2"         |
+| 3      | "dDeEfF3"         |
+| 4      | "gGhHiI4"         |
+| 5      | "jJkKlL5"         |
+| 6      | "mMnNoO6"         |
+| 7      | "pPqQrRsS7"       |
+| 8      | "tTuUvV8"         |
+| 9      | "wWxXyYzZ9"       |
 
 ### Completion example
 
