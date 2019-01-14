@@ -11,27 +11,29 @@
 namespace t9 {
 
 Model::Model(const Corpus &corpus, size_t ngram_length, size_t n_paths)
-    : search_tree(ngram_length, n_paths),
-      corpus(corpus),
+    : corpus(corpus),
       ngram_length(ngram_length),
       n_paths(n_paths) {
+  search_tree = new SearchTree(ngram_length, n_paths);
+  corpus_tree = new CorpusTree();
+}
 
+Model::~Model() {
+  delete corpus_tree;
+  delete search_tree;
 }
 
 void
 Model::build_corpus_tree() {
-  corpus_tree.insert_ngrams(corpus, ngram_length);
-  corpus_tree.calculate_probabilities();
+  corpus_tree->insert_ngrams(corpus, ngram_length);
+  corpus_tree->calculate_probabilities();
 }
 
-//void
-//Model::reset_search_tree() {
-//  search_tree.level_table.clear();
-//  search_tree.best_paths.clear();
-//  search_tree.depth = 0;
-//  delete search_tree.root;
-//  search_tree.root = new SearchNode(' ', 0.0f);
-//}
+void
+Model::reset_search_tree() {
+  delete search_tree;
+  search_tree = new SearchTree(ngram_length, n_paths);
+}
 
 std::vector<std::pair<t9_symbol_sequence, float>>
 Model::autocomplete(const t9_symbol_sequence &input) {
@@ -41,10 +43,10 @@ Model::autocomplete(const t9_symbol_sequence &input) {
   // Validate that the sequence to be inserted only contains valid lexicon symbols.
   if (corpus.validate_t9_keys(input)) {
     // Autocomplete a given input sequence based onm the model.
-    search_tree.type(input, this);
+    search_tree->type(input, this);
 
     // Create a collection containing the suggested completions and their scores.
-    for (const auto &path : search_tree.best_paths) {
+    for (const auto &path : search_tree->best_paths) {
       suggestion = {
           path.to_string(),
           path.get_probability()

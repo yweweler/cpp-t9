@@ -35,12 +35,21 @@ class Model {
   Model(const Corpus &corpus, size_t ngram_length, size_t n_paths);
 
   /**
+   * Destruct the model.
+   */
+  ~Model();
+
+  /**
    * Construct a statistical model of the likelihood of occurrence of ngram text sequences.
    */
   void
   build_corpus_tree();
 
-//  void reset_search_tree();
+  /**
+   * Discard and reinitialize the search tree.
+   */
+  void
+  reset_search_tree();
 
   /**
    * Autocomplete a sequence of T9 keys based on the statistical model.
@@ -69,8 +78,8 @@ class Model {
 
  public:
   // TODO(yweweler): Refactor: Write getter style access functions.
-  SearchTree search_tree;
-  CorpusTree corpus_tree;
+  SearchTree *search_tree;
+  CorpusTree *corpus_tree;
   const Corpus &corpus;
   size_t ngram_length;
 

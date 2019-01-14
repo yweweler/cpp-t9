@@ -120,7 +120,7 @@ SearchNode::insert(t9_symbol symbol, t9_symbol_sequence &sequence, Model *model)
 
       // Calculate child probability.
       prob_t_b = -t9::ln(model->probability_key_when_symbol(symbol, corpus_symbol));
-      prob_b_bb = -t9::ln(model->corpus_tree.conditional_probability(buffer));
+      prob_b_bb = -t9::ln(model->corpus_tree->conditional_probability(buffer));
       prob = prob_t_b + prob_b_bb + this->probability;
 
       auto child = new SearchNode(corpus_symbol, prob);

@@ -26,12 +26,17 @@ namespace t9 {
 class CorpusTree {
  public:
   // Root note of the tree.
-  t9::CorpusNode root;
+  t9::CorpusNode *root;
 
   /**
    * Construct a corpus tree.
    */
   CorpusTree();
+
+  /**
+   * Destruct the corpus tree.
+   */
+  ~CorpusTree();
 
   /**
    * Given a corpus insert all possible ngrams of a given length into a corpus tree.
@@ -67,6 +72,11 @@ class SearchTree {
    * @param max_paths Maximal number of best paths to keep track of.
    */
   SearchTree(size_t ngram_length, size_t max_paths);
+
+  /**
+   * Destruct the search tree.
+   */
+  ~SearchTree();
 
   /**
    * Type a sequence of keys into the search tree and calculate the best text suggestions for the entered keys.

@@ -21,6 +21,9 @@ void example_autocomplete(t9::Model &model, const t9_symbol_sequence &input) {
   t9::timer timer;
   std::cout << std::endl << "Typing sequence: " << input << std::endl;
 
+  // Discard any old search information.
+  model.reset_search_tree();
+
   timer.restart();
 //    model.reset_search_tree();
   auto suggestions = model.autocomplete(input);
@@ -45,6 +48,9 @@ void example_evaluate(t9::Model &model) {
 
   t9::timer timer;
   float error;
+
+  // Discard any old search information.
+  model.reset_search_tree();
 
   timer.restart();
   error = model.evaluate();
@@ -129,10 +135,10 @@ int main() {
               << std::endl;
 
     // Example 1: Autocomplete text based on a sequence of T9 key presses.
-//    example_autocomplete(model, "366253#87867");
+    example_autocomplete(model, "366253#87867");
 
-    // Example 2: Evaluate model using the test corpus.
-    example_evaluate(model);
+//     Example 2: Evaluate model using the test corpus.
+//    example_evaluate(model);
   }
   catch (const std::exception &ex) {
     std::cerr << ex.what() << std::endl;

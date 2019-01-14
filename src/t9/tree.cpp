@@ -4,9 +4,12 @@
 
 namespace t9 {
 
-CorpusTree::CorpusTree() :
-    root(CorpusNode(' ')) {
+CorpusTree::CorpusTree() {
+  root = new CorpusNode(' ');
+}
 
+CorpusTree::~CorpusTree() {
+  delete root;
 }
 
 void
@@ -16,20 +19,20 @@ CorpusTree::insert_ngrams(const Corpus &corpus, size_t ngram_length) {
 
   while (!generator.is_done()) {
     ngram = generator.generate_ngram();
-    root.insert_ngram(ngram);
+    root->insert_ngram(ngram);
   }
 }
 
 void
 CorpusTree::calculate_probabilities() {
   // Count the children of the root node.
-  root.count = 0;
-  for (CorpusNode *child : root.children) {
-    root.count += child->count;
+  root->count = 0;
+  for (CorpusNode *child : root->children) {
+    root->count += child->count;
   }
 
   // Calculate the conditional probabilities of each node.
-  root.calculate_probabilities();
+  root->calculate_probabilities();
 }
 
 float
@@ -37,7 +40,7 @@ CorpusTree::conditional_probability(const std::string &sequence) const {
   std::string_view view(sequence);
 
   // Find probability of the sequence in tree.
-  return root.conditional_probability(view);
+  return root->conditional_probability(view);
 }
 
 SearchTree::SearchTree(size_t ngram_length, size_t max_paths)
@@ -48,6 +51,10 @@ SearchTree::SearchTree(size_t ngram_length, size_t max_paths)
 
   // Prepare memory for the collection of best paths since we know the max. number already.
   best_paths.reserve(max_paths);
+}
+
+SearchTree::~SearchTree() {
+  delete root;
 }
 
 void
