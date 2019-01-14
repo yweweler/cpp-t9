@@ -37,7 +37,49 @@ This example shows how a given sequence of T9 keys is used generate a text sugge
 Here the key sequence `366253#87867` is entered:
 
 ```
-TODO
+========================================================
+Key to Corpus Table:
+========================================================
+#: " "
+*: ""
+0: "0"
+1: ".,1"
+2: "aAbBcC2"
+3: "dDeEfF3"
+4: "gGhHiI4"
+5: "jJkKlL5"
+6: "mMnNoO6"
+7: "pPqQrRsS7"
+8: "tTuUvV8"
+9: "wWxXyYzZ9"
+========================================================
+
+Loaded train data (3091794 bytes)
+Train data validated successfully
+Loaded test data (140 bytes)
+Test data validated successfully
+Loading the corpus took: 168.95 ms
+Building the model took: 856.33 ms
+
+Typing sequence: 366253#87867
+Autocomplete suggestions:
+    (9.6757): "Donald Trump"
+    (12.8488): "DONALD TRUMP"
+    (13.6142): "donald Trump"
+    (15.2169): "DONALD Trump"
+    (15.7823): "Donald TRUMP"
+    (15.8735): "Donald trump"
+    (16.9666): "eonald Trump"
+    (17.7397): "Donald Trums"
+    (18.9669): "DONALD TRUMp"
+    (21.4127): "Donald Truns"
+    (21.6783): "donald Trums"
+    (21.9004): "Donald TRUMp"
+    (22.4398): "Donald truns"
+    (23.2810): "DONALD Trums"
+    (23.9376): "Donald trums"
+Autocomplete took: 8246.55 ms
+Done!
 ```
 
 ### Evaluation example
@@ -47,7 +89,31 @@ This example shows how the statistical model learned from a training corpus can 
 Here the evaluation of a model with a ngram length of four and an evaluation text length of 140 characters. For meaningful results longer test sequences should be used:
 
 ```
-TODO
+========================================================
+Key to Corpus Table:
+========================================================
+#: " "
+*: ""
+0: "0"
+1: ".,1"
+2: "aAbBcC2"
+3: "dDeEfF3"
+4: "gGhHiI4"
+5: "jJkKlL5"
+6: "mMnNoO6"
+7: "pPqQrRsS7"
+8: "tTuUvV8"
+9: "wWxXyYzZ9"
+========================================================
+
+Loaded train data (3091794 bytes)
+Train data validated successfully
+Loaded test data (140 bytes)
+Test data validated successfully
+Loading the corpus took: 168.96 ms
+Building the model took: 848.68 ms
+Evaluation: duration: 8835.71 ms,  error: 0.064
+Done!
 ```
 
 ### Parameters
@@ -55,7 +121,7 @@ TODO
 There are two main parameters that control the model creation process:
 
 * **ngram_length**: The Ngram length to use for building the statistical  model.
-* **number_paths**: After every T9 key entered, the system generates a sugegstion and prunes the internal tree structure. ```number_paths``` defines how many of the best paths (different suggestions) should survive the pruning. Therefore, in the end there exist up to this number of text suggestions for an entered key sequence.
+* **n_paths**: After every T9 key entered, the system generates a suggestion and prunes the internal tree structure. ```n_paths``` defines how many of the best paths (different suggestions) should survive the pruning. Therefore, in the end there exist up to this number of text suggestions for an entered key sequence.
 
 
 
@@ -64,8 +130,8 @@ There are two main parameters that control the model creation process:
 ### Debug
 
 ```
-mkdir debug
-cd debug
+mkdir -p build/debug
+cd build/debug
 cmake -DCMAKE_BUILD_TYPE=Debug ../
 make
 ```
@@ -73,7 +139,7 @@ make
 ### Release
 
 ```
-mkdir release
-cd release
+mkdir -p build/release
+cd build/release
 cmake -DCMAKE_BUILD_TYPE=Release ../
 make
