@@ -16,7 +16,7 @@ set(CMAKE_CXX_STANDARD_LIBRARIES "${CMAKE_CXX_STANDARD_LIBRARIES} -lstdc++fs")
 
 #set( CMAKE_VERBOSE_MAKEFILE on )
 
-#include_directories(SYSTEM libs)
+include_directories(SYSTEM libs)
 include_directories(include)
 
 set(SOURCE_FILES
