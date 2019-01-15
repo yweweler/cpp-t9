@@ -11,11 +11,11 @@
 namespace t9 {
 Corpus::Corpus(const std::filesystem::path &train_file_path, size_t n_train,
                const std::filesystem::path &test_file_path, size_t n_test,
-               const std::map<t9_symbol, t9_symbol_sequence> &keyboard)
+               const std::unordered_map<t9_symbol, t9_symbol_sequence> &keyboard)
     : key_2_corpus_map(keyboard) {
 
-  std::set<t9_symbol> train_data_set;
-  std::set<t9_symbol> test_data_set;
+  std::unordered_set<t9_symbol> train_data_set;
+  std::unordered_set<t9_symbol> test_data_set;
   bool symbols_valid;
 
   // Construct the key set and the corpus symbol set.
@@ -169,9 +169,9 @@ Corpus::keys_from_corpus(const t9_symbol_sequence &corpus_sequence) const {
   return keys;
 }
 
-std::set<t9_symbol>
+std::unordered_set<t9_symbol>
 Corpus::construct_set_from_sequence(const t9_symbol_sequence &data) {
-  std::set<t9_symbol> symbol_set;
+  std::unordered_set<t9_symbol> symbol_set;
 
   for (auto symbol : data) {
     symbol_set.insert(symbol);

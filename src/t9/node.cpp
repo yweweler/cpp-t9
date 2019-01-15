@@ -107,7 +107,7 @@ SearchNode::insert(t9_symbol symbol, t9_symbol_sequence &sequence, Model *model)
 
   if (is_leaf()) {
     // Append a child for each corpus symbols to the leaf node.
-    const std::set<t9_symbol> &corpus_symbols = model->corpus.corpus_set;
+    const auto &corpus_symbols = model->corpus.corpus_set;
 
     for (auto corpus_symbol : corpus_symbols) {
       size_t sequence_length = sequence.length();

@@ -12,8 +12,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <map>
-#include <set>
+#include <unordered_map>
+#include <unordered_set>
 #include <iterator>
 
 #include "format.hpp"
@@ -48,7 +48,7 @@ class Corpus {
    */
   Corpus(const std::filesystem::path &train_file_path, size_t n_train,
          const std::filesystem::path &test_file_path, size_t n_test,
-         const std::map<t9_symbol, t9_symbol_sequence> &keyboard);
+         const std::unordered_map<t9_symbol, t9_symbol_sequence> &keyboard);
 
   /***
    * Get a sequence of all the corpus symbols that are assigned to a key.
@@ -116,10 +116,10 @@ class Corpus {
   get_test_data() const;
 
   // Set of unique keys found in the key to corpus symbol table.
-  std::set<t9_symbol> keys_set;
+  std::unordered_set<t9_symbol> keys_set;
 
   // Set of unique corpus symbols found in the key to corpus symbol table.
-  std::set<t9_symbol> corpus_set;
+  std::unordered_set<t9_symbol> corpus_set;
 
  protected:
   /***
@@ -127,12 +127,12 @@ class Corpus {
    * @param data Data sequence to construct the set from.
    * @return A set of thee unique symbols contained.
    */
-  std::set<t9_symbol>
+  std::unordered_set<t9_symbol>
   construct_set_from_sequence(const t9_symbol_sequence &data);
 
  private:
-  std::map<t9_symbol, t9_symbol_sequence> key_2_corpus_map;
-  std::map<t9_symbol, t9_symbol> corpus_2_key_map;
+  std::unordered_map<t9_symbol, t9_symbol_sequence> key_2_corpus_map;
+  std::unordered_map<t9_symbol, t9_symbol> corpus_2_key_map;
 
   // Training data.
   t9_symbol_sequence train_data;

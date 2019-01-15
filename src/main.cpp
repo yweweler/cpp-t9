@@ -8,7 +8,7 @@
 
 #include <filesystem>
 #include <iostream>
-#include <map>
+#include <unordered_map>
 #include <iterator>
 #include <iomanip>
 #include <t9/model.hpp>
@@ -63,7 +63,7 @@ void example_evaluate(t9::Model &model) {
 
 int main() {
   // Lookup table mapping t9 keys to corpus symbols.
-  std::map<t9_symbol, t9_symbol_sequence> key_2_corpus_table;
+  std::unordered_map<t9_symbol, t9_symbol_sequence> key_2_corpus_table;
 
   // Note: std::filesystem::path is available since C++17.
   std::filesystem::path train_file_path;
