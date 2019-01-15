@@ -14,6 +14,7 @@
 #include <unordered_set>
 #include <list>
 #include <algorithm>
+#include <experimental/memory>
 
 namespace t9 {
 class Model;
@@ -22,6 +23,9 @@ class SearchPath;
 
 #include "t9/symbols.hpp"
 #include "t9/path.hpp"
+
+using std::experimental::observer_ptr;
+using std::experimental::make_observer;
 
 namespace t9 {
 
@@ -81,8 +85,7 @@ class CorpusNode : public Node {
   size_t count;
 
  protected:
-//        std::unique_ptr<CorpusNode> parent;
-  CorpusNode *parent;
+  observer_ptr<CorpusNode> parent;
 };
 
 class SearchNode : public Node {
@@ -138,7 +141,7 @@ class SearchNode : public Node {
 
  protected:
   // Parent node.
-  SearchNode *parent;
+  observer_ptr<SearchNode> parent;
 };
 
 }  // namesapce t9

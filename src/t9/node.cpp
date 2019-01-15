@@ -30,7 +30,7 @@ CorpusNode::~CorpusNode() {
 CorpusNode *
 CorpusNode::get_child_safe(t9_symbol symbol) {
   // Search for an existing child with the desired symbol.
-  for (CorpusNode *child : children) {
+  for (const auto child : children) {
     if (child->symbol == symbol) {
       // A child with the symbol already exists.
       return child;
@@ -39,7 +39,7 @@ CorpusNode::get_child_safe(t9_symbol symbol) {
 
   // There is no child containing with that symbol, create and insert a new one.
   auto child = new CorpusNode(symbol);
-  child->parent = this;
+  child->parent = make_observer(this);
   children.push_back(child);
 
   return child;
@@ -124,7 +124,7 @@ SearchNode::insert(t9_symbol symbol, t9_symbol_sequence &sequence, Model *model)
       prob = prob_t_b + prob_b_bb + this->probability;
 
       auto child = new SearchNode(corpus_symbol, prob);
-      child->parent = this;
+      child->parent = make_observer(this);
 
       // Add child to parent.
       children.push_back(child);
