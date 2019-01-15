@@ -22,7 +22,7 @@ CorpusNode::CorpusNode(t9_symbol symbol) :
 }
 
 CorpusNode::~CorpusNode() {
-  for (CorpusNode *child : children) {
+  for (auto child : children) {
     delete child;
   }
 }
@@ -60,7 +60,7 @@ CorpusNode::insert_ngram(std::string_view ngram) {
 
 void
 CorpusNode::calculate_probabilities() {
-  for (CorpusNode *child : children) {
+  for (auto child : children) {
     child->probability = static_cast<float>(child->count) / static_cast<float>(this->count);
     child->calculate_probabilities();
   }
@@ -68,7 +68,7 @@ CorpusNode::calculate_probabilities() {
 
 float
 CorpusNode::conditional_probability(std::string_view sequence) const {
-  for (CorpusNode *child : children) {
+  for (auto child : children) {
     // Check if there is a child with a symbol corresponding to the first symbol of the sequence.
     if (child->symbol == sequence.front()) {
       // Matching child was found.
@@ -93,7 +93,7 @@ SearchNode::SearchNode(t9_symbol symbol, float probability) :
 }
 
 SearchNode::~SearchNode() {
-  for (SearchNode *child : children) {
+  for (auto child : children) {
     delete child;
   }
 }
@@ -131,7 +131,7 @@ SearchNode::insert(t9_symbol symbol, t9_symbol_sequence &sequence, Model *model)
     }
   } else {
     // Descend the tree until a leaf node.
-    for (SearchNode *child : children) {
+    for (auto child : children) {
       buffer = sequence;
       buffer.push_back(child->symbol);
 
@@ -229,7 +229,7 @@ SearchNode::search_paths(SearchPath &current_path, std::vector<SearchPath> &best
     }
   } else {
     // Descend tree until a leaf node is hit.
-    for (SearchNode *child : children) {
+    for (auto child : children) {
       // Descend down separate a path for each child.
       current_path.push_back(child);
       child->search_paths(current_path, best_paths, max_paths);
